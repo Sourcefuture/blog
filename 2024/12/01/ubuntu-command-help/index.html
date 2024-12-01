@@ -1,0 +1,897 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Ubuntu系统常用命令 | Source 博客</title><meta name="author" content="Source"><meta name="copyright" content="Source"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Ubuntu常用命令文件列表lsls,即list 列出目录下的所有项 参数 -l		以详细模式查看 -a		查看所有文件 -h		配合-l以人性化的方式显示文件大小  在Linux下，以.开头的文件为隐藏文件  通配符 *		代表任意个数个字符 ?		代表任意一个字符，至少一个 []		表示可以匹配字符组中的任意一个 [abc]	匹配a,b,c中的任意一个 [a-f]	匹配从a到f范围内的任意一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu系统常用命令">
+<meta property="og:url" content="https://blog.lcbmasters.com/2024/12/01/ubuntu-command-help/index.html">
+<meta property="og:site_name" content="Source 博客">
+<meta property="og:description" content="Ubuntu常用命令文件列表lsls,即list 列出目录下的所有项 参数 -l		以详细模式查看 -a		查看所有文件 -h		配合-l以人性化的方式显示文件大小  在Linux下，以.开头的文件为隐藏文件  通配符 *		代表任意个数个字符 ?		代表任意一个字符，至少一个 []		表示可以匹配字符组中的任意一个 [abc]	匹配a,b,c中的任意一个 [a-f]	匹配从a到f范围内的任意一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/01/CGuasMZmPBRiA4S.png">
+<meta property="article:published_time" content="2024-12-01T11:44:44.000Z">
+<meta property="article:modified_time" content="2024-12-01T11:47:04.701Z">
+<meta property="article:author" content="Source">
+<meta property="article:tag" content="Document">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/01/CGuasMZmPBRiA4S.png"><link rel="shortcut icon" href="https://s2.loli.net/2024/11/03/Q2RfwvAeh5ElCI8.png"><link rel="canonical" href="https://blog.lcbmasters.com/2024/12/01/ubuntu-command-help/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        if (name && globalFn[key][name]) return
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":500,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Ubuntu系统常用命令',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-01 19:47:04'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/11/03/J7hnBxTPdOEzUYm.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Document/"><i class="fa-fw fas fa-file"></i><span> 文档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-link"></i><span> 链接</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://home.lcbmasters.com"><i class="fa-fw fas fa-home"></i><span> Home</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://tool.lcbmasters.com"><i class="fa-fw fas fa-tools"></i><span> ToolKit</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://s2.loli.net/2024/12/01/Nir9Qeh7YXJczLE.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Source 博客</span></a><a class="nav-page-title" href="/"><span class="site-name">Ubuntu系统常用命令</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/Document/"><i class="fa-fw fas fa-file"></i><span> 文档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-link"></i><span> 链接</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://home.lcbmasters.com"><i class="fa-fw fas fa-home"></i><span> Home</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://tool.lcbmasters.com"><i class="fa-fw fas fa-tools"></i><span> ToolKit</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Ubuntu系统常用命令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-01T11:44:44.000Z" title="发表于 2024-12-01 19:44:44">2024-12-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-01T11:47:04.701Z" title="更新于 2024-12-01 19:47:04">2024-12-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Document/">Document</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h1><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="文件列表"><a href="#文件列表" class="headerlink" title="文件列表"></a>文件列表</h3><h4 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h4><p><code>ls</code>,即<code>list</code></p>
+<p>列出目录下的所有项</p>
+<p><strong>参数</strong></p>
+<p><code>-l</code>		以详细模式查看</p>
+<p><code>-a</code>		查看所有文件</p>
+<p><code>-h</code>		配合<code>-l</code>以人性化的方式显示文件大小</p>
+<ul>
+<li>在<code>Linux</code>下，以<code>.</code>开头的文件为隐藏文件</li>
+</ul>
+<p><strong>通配符</strong></p>
+<p><code>*</code>		代表任意个数个字符</p>
+<p><code>?</code>		代表任意一个字符，至少一个</p>
+<p><code>[]</code>		表示可以匹配字符组中的任意一个</p>
+<p><code>[abc]</code>	匹配<code>a</code>,<code>b</code>,<code>c</code>中的任意一个</p>
+<p><code>[a-f]</code>	匹配从<code>a</code>到<code>f</code>范围内的任意一个</p>
+<ul>
+<li>例</li>
+</ul>
+<p>在<code>/home/l/desktop/</code>下 有文件：<code>123.txt,223.txt,323.txt,423.txt,111.txt,1abc1.txt</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br><span class="line">111.txt  123.txt  1abc1.txt  223.txt  323.txt  423.txt</span><br><span class="line"></span><br><span class="line">ls 1*</span><br><span class="line">111.txt  123.txt  1abc1.txt</span><br><span class="line"></span><br><span class="line">ls 1*1*</span><br><span class="line">111.txt  1abc1.txt</span><br><span class="line"></span><br><span class="line">ls ?2*</span><br><span class="line">123.txt  223.txt  323.txt  423.txt</span><br><span class="line"></span><br><span class="line">ls [12345]*</span><br><span class="line">111.txt  123.txt  1abc1.txt  223.txt  323.txt  423.txt</span><br><span class="line"></span><br><span class="line">ls [1-3]23.txt</span><br><span class="line">123.txt  223.txt  323.txt</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p><strong>示例</strong></p>
+<p>查看当前目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
+
+<p>查看<code>/home/l</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /home/l</span><br></pre></td></tr></table></figure>
+
+<h4 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h4><p><code>pwd</code>,即<code>print working directory</code></p>
+<p>显示当前工作目录</p>
+<h3 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h3><h4 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h4><p><code>cd</code>,即<code>change directory</code></p>
+<p>切换目录</p>
+<p><strong>几个特殊的目录</strong></p>
+<p><em><code>~</code></em>		代表当前用户的主目录</p>
+<p><em><code>.</code></em>		代表当前目录</p>
+<p><em><code>..</code></em>		代表上一级目录</p>
+<p>切换到主目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br></pre></td></tr></table></figure>
+
+<p>切换到主目录下的example目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~/example</span><br></pre></td></tr></table></figure>
+
+<p>切换到上级目录、再到www子目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ../www</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例</strong></p>
+<p>切换到当前用户主目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd</span><br></pre></td></tr></table></figure>
+
+<p>切换到某个目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/l/example</span><br></pre></td></tr></table></figure>
+
+<h3 id="目录操作"><a href="#目录操作" class="headerlink" title="目录操作"></a>目录操作</h3><h4 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h4><p>可以以树状图列出文件目录结构</p>
+<p><strong>参数</strong></p>
+<p><code>-d</code>		只显示目录</p>
+<h4 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h4><p><code>mkdir</code>,即<code>make directory</code></p>
+<p>创建目录</p>
+<p><strong>参数</strong></p>
+<p><code>-p</code>		将路径的层次目录全部创建</p>
+<h4 id="rmdir"><a href="#rmdir" class="headerlink" title="rmdir"></a>rmdir</h4><p><code>rmdir</code>,即<code>remove directory</code></p>
+<p>删除空目录</p>
+<ul>
+<li>如果目录非空，则删除失败</li>
+</ul>
+<h3 id="创建与删除操作"><a href="#创建与删除操作" class="headerlink" title="创建与删除操作"></a>创建与删除操作</h3><h4 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h4><p><code>rm</code>,即<code>remove</code></p>
+<p>删除文件或者目录</p>
+<p><strong>参数</strong></p>
+<p><code>-rf</code></p>
+<p><code>r</code>表示<code>recursive</code>,强制删除，忽略不存在的文件，无需提示</p>
+<p><code>f</code>表示<code>force</code>,递归的删除目录下的内容，<strong>删除文件夹</strong>时必须加此<strong>参数</strong></p>
+<p><strong>示例</strong></p>
+<p>删除<code>abc</code>目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf abc</span><br></pre></td></tr></table></figure>
+
+<h4 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h4><p><code>touch</code>,即<code>touch</code></p>
+<p>若文件不存在，新建文件</p>
+<h3 id="拷贝和移动文件"><a href="#拷贝和移动文件" class="headerlink" title="拷贝和移动文件"></a>拷贝和移动文件</h3><h4 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h4><p><code>cp</code>,即<code>copy</code></p>
+<p>复制文件或者目录</p>
+<p><strong>参数</strong></p>
+<p><code>-f</code>		已经存在的目标文件直接覆盖，不会提示</p>
+<p><code>-i</code>		覆盖文件前提示</p>
+<p><code>-r</code>		若给楚的源文件是目录文件，则复制，将递归复制该目录下的所有子目录和文件，目标文件必须为一个目录名</p>
+<p><strong>示例</strong></p>
+<p>复制example至example2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -rf example example2</span><br></pre></td></tr></table></figure>
+
+<h4 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h4><p><code>mv</code>,即<code>move</code></p>
+<p>移动文件或目录（重命名）</p>
+<p><strong>参数</strong></p>
+<p><code>-f</code>		已经存在的目标文件直接覆盖，不会提示</p>
+<p><code>-i</code>		覆盖文件前提示</p>
+<p><strong>示例</strong></p>
+<p>重命名hello为helloworld</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">move hello helloworld</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看文件内容"><a href="#查看文件内容" class="headerlink" title="查看文件内容"></a>查看文件内容</h3><h4 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h4><p><code>cat</code>即<code>concatenate</code>,查看文件内容、创建文件、文件合并、追加文件内容等功能</p>
+<p><strong>参数</strong></p>
+<p><code>-b</code>		对非空输出行编号</p>
+<p><code>-n</code>		对输出的所有行编号</p>
+<ul>
+<li>命令<code>-nl</code>与命令<code>-cat -b</code>等效果等价</li>
+</ul>
+<h4 id="more"><a href="#more" class="headerlink" title="more"></a>more</h4><p>可以用于分屏显示文件内容， 每次只显示一页内容</p>
+<ul>
+<li>适用于查看文件较多的文本文件</li>
+</ul>
+<p><strong>操作</strong></p>
+<p>空格键		显示手册页的下一屏</p>
+<p><code>Enter</code>键	一次滚动手册页的一行</p>
+<p><code>b</code>			  回滚一屏</p>
+<p><code>f</code>			  前滚一屏</p>
+<p><code>q</code>			  退出</p>
+<p><code>/word</code>	   搜索<code>word</code>字符串</p>
+<h4 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h4><p>文本搜索工具</p>
+<p><strong>参数</strong></p>
+<p><code>-n</code>		显示匹配行及行号</p>
+<p><code>-v</code>		显示不包含匹配文本的所有行（相当于求反）</p>
+<p><code>-i</code>		忽略大小写</p>
+<ul>
+<li>常用的两种模式查找</li>
+</ul>
+<p><code>^a</code>		行首，搜索以<code>a</code>开头的行</p>
+<p><code>ke$</code>		行尾，搜索以<code>ke</code>结束的行</p>
+<h3 id="归档压缩"><a href="#归档压缩" class="headerlink" title="归档压缩"></a>归档压缩</h3><h4 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h4><p><code>tar</code>,即<code>tape archive</code></p>
+<p>创建档案包</p>
+<p><strong>参数</strong></p>
+<p><code>-cvf</code></p>
+<p>其中，</p>
+<p><code>c</code>,表示<code>create</code>创建档案</p>
+<p><code>v</code>,表示<code>verbose</code>显示详情</p>
+<p><code>f</code>,表示<code>file</code></p>
+<p>创建档案包</p>
+<p><code>-xvf</code>		还原档案包</p>
+<p><code>-C</code>		指定目标目录，默认解压到当前目录下（目标路径必须存在）</p>
+<p><strong>压缩</strong></p>
+<p>1.<strong>gzip</strong></p>
+<p><code>-z</code>		压缩（自动调用<code>gzip</code>）</p>
+<p>拓展名为<code>tar.gz</code></p>
+<p>2.<strong>bzip2</strong></p>
+<p><code>-j</code>		压缩（自动调用<code>bzip2</code>）</p>
+<p>拓展名为<code>tar.bz2</code></p>
+<p><strong>示例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -cvf example.tar example</span><br><span class="line">tar -xvf example.tar</span><br><span class="line">tar -xvf example.tar -C outdir</span><br></pre></td></tr></table></figure>
+
+<p>打包多个目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -cvf xxx.tar file1 file2 file3</span><br></pre></td></tr></table></figure>
+
+<p>并档并压缩</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -czvf example.tar.gz example</span><br><span class="line">tar -jcvf example.tar.bz2 example</span><br></pre></td></tr></table></figure>
+
+<p>解压缩</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf example.tar.gz</span><br><span class="line">tar -xzvf example.tar.gz -C outdir</span><br></pre></td></tr></table></figure>
+
+<h3 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h3><h4 id="ln"><a href="#ln" class="headerlink" title="ln"></a>ln</h4><p><code>ln</code>,即<code>link</code></p>
+<p>创建软链接</p>
+<p><strong>参数</strong></p>
+<p><code>-s</code>		表示<code>soft</code>软链接（默认为硬）</p>
+<p><strong>示例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln -s 被链接的源文件 链接文件</span><br><span class="line"></span><br><span class="line">ln -s example example2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>源文件最好使用绝对路径</li>
+</ul>
+<h3 id="软件包"><a href="#软件包" class="headerlink" title="软件包"></a>软件包</h3><h4 id="apt"><a href="#apt" class="headerlink" title="apt"></a>apt</h4><p><code>apt</code>即<code>Advanced Packaging Tool</code>软件包管理器</p>
+<p>安装一个软件包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install net-tools</span><br></pre></td></tr></table></figure>
+
+<p>移除一个软件包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt remove net-tools</span><br></pre></td></tr></table></figure>
+
+<p>搜索</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt search xxx</span><br></pre></td></tr></table></figure>
+
+<p>更新</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt upgrade</span><br></pre></td></tr></table></figure>
+
+<p>列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt list</span><br></pre></td></tr></table></figure>
+
+<p><strong>软件源</strong></p>
+<ul>
+<li>如果希望在<code>Ubuntu</code>中安装软件，<strong>更加快速</strong>，可以通过设置<strong>镜像源</strong>，选择一个访问网速更快的服务器，来提供软件下载&#x2F;安装服务。</li>
+<li>提示：更换服务器之后，需要一个相对比较长时间的更新过程，需要耐心等待。更新完成后，再安装软件都会从信社之的服务器下载软件了。</li>
+<li>所谓镜像源，就是<strong>所有服务器的内容是相同的（镜像）</strong>，但根据所在位置不同，国内服务器通常速度会更快一些。</li>
+</ul>
+<h3 id="关机-重启"><a href="#关机-重启" class="headerlink" title="关机&#x2F;重启"></a>关机&#x2F;重启</h3><h4 id="shutdown"><a href="#shutdown" class="headerlink" title="shutdown"></a>shutdown</h4><p>可以<strong>安全</strong> <strong>关闭</strong>或<strong>重新启动系统</strong></p>
+<p><strong>参数</strong></p>
+<p><code>-r</code>		重新启动</p>
+<ul>
+<li><strong>不指定选项和参数</strong>，默认表示<strong>1分钟</strong>之后<strong>关闭电脑</strong></li>
+<li>远程维护服务器时，最好不要关闭系统，而应该重新启动系统</li>
+</ul>
+<p><strong>示例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 重新启动操作系统，其中now表示现在</span><br><span class="line">shutdown -r now</span><br><span class="line"># 立刻关机</span><br><span class="line">shutdown now</span><br><span class="line"># 系统在今天的 20:25 会关机</span><br><span class="line">shutdown 20:25</span><br><span class="line"># 系统再过十分钟后自动关机</span><br><span class="line">shutdown +10</span><br><span class="line"># 取消之前指定的关机计划</span><br><span class="line">shutdown -c</span><br></pre></td></tr></table></figure>
+
+<h3 id="查找命令位置"><a href="#查找命令位置" class="headerlink" title="查找命令位置"></a>查找命令位置</h3><h4 id="which"><a href="#which" class="headerlink" title="which"></a>which</h4><p>可以查看执行命令所在位置</p>
+<p><strong>示例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">which ls</span><br><span class="line"></span><br><span class="line"># 输出</span><br><span class="line"># /bin/ls</span><br><span class="line"></span><br><span class="line">which useradd</span><br><span class="line"></span><br><span class="line"># 输出</span><br><span class="line"># /usr/sbin/useradd</span><br></pre></td></tr></table></figure>
+
+<p><code>bin</code>和<code>sbin</code></p>
+<ul>
+<li>在<code>Linux</code>中，绝大多数可执行文件都是保存在<code>/bin</code>、<code>/sbin</code>、<code>/usr/bin</code>、<code>/usr/sbin</code></li>
+<li><code>/bin</code>（<code>binary</code>）是二进制执行文件目录，主要用于具体应用</li>
+<li><code>/sbin</code>（<code>system binary</code>）是系统管理员专用的二进制代码存放目录，主要用于系统管理</li>
+<li><code>/usr/bin</code>（<code>user commands for applications</code>）后期安装的一些软件</li>
+<li><code>/usr/sbin</code>（<code>super user commands for applications</code>）超级用户的一些管理程序</li>
+</ul>
+<h3 id="查找文件位置"><a href="#查找文件位置" class="headerlink" title="查找文件位置"></a>查找文件位置</h3><h4 id="find"><a href="#find" class="headerlink" title="find"></a>find</h4><p>在<strong>特定的目录</strong> <strong>搜索</strong>符合条件的文件</p>
+<p><strong>用法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find [路径] -name &quot;文件名&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果省略路径，表示在当前文件夹下查找</li>
+<li>可使用通配符</li>
+</ul>
+<h3 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h3><h4 id="日期与时间"><a href="#日期与时间" class="headerlink" title="日期与时间"></a>日期与时间</h4><p>#####data</p>
+<p>查看系统时间</p>
+<h5 id="cal"><a href="#cal" class="headerlink" title="cal"></a>cal</h5><p><code>cal</code>即<code>calendar</code>查看日历</p>
+<p><strong>参数 -y</strong> 可查看一年的日历</p>
+<h4 id="磁盘和目录空间"><a href="#磁盘和目录空间" class="headerlink" title="磁盘和目录空间"></a>磁盘和目录空间</h4><h5 id="df"><a href="#df" class="headerlink" title="df"></a>df</h5><p><code>df</code>即<code>disk free</code>显示磁盘剩余空间</p>
+<h5 id="du"><a href="#du" class="headerlink" title="du"></a>du</h5><p><code>du</code>即<code>disk usage</code>显示目录下的文件大小</p>
+<p><strong>参数</strong></p>
+<p><code>-h</code>		以人性化的方式显示问件大小</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h4><p>在终端中显示参数指定的文字，通常会和<strong>重定向</strong>联合使用</p>
+<h4 id="clear"><a href="#clear" class="headerlink" title="clear"></a>clear</h4><p>清屏</p>
+<h4 id="重定向-和"><a href="#重定向-和" class="headerlink" title="重定向 &gt; 和 &gt;&gt;"></a>重定向 &gt; 和 &gt;&gt;</h4><ul>
+<li>将本应该显示在<strong>终端上的内容</strong> <strong>输出&#x2F;追加</strong> 到<strong>指定文件中</strong></li>
+</ul>
+<p>其中</p>
+<ul>
+<li><code>&gt;</code>表示输出，会覆盖文件原有的内容</li>
+<li><code>&gt;&gt;</code>表示追加，会将内容追加到已有的文件的末尾</li>
+</ul>
+<h4 id="管道"><a href="#管道" class="headerlink" title="管道 |"></a>管道 |</h4><ul>
+<li>将<strong>一个命令的输出</strong>可以<strong>通过管道</strong>做为<strong>另一个命令的输入</strong></li>
+</ul>
+<p>常见的管道命令：<code>more</code>,<code>grep</code></p>
+<ul>
+<li>小技巧</li>
+</ul>
+<p><code>ctrl + shift + =</code> <strong>放大</strong>终端窗口的字体显示</p>
+<p><code>ctrl + -*</code><strong>缩小</strong>终端窗口的字体显示</p>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><h3 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h3><h4 id="sudo-表示以管理员身份运行"><a href="#sudo-表示以管理员身份运行" class="headerlink" title="sudo,表示以管理员身份运行"></a><code>sudo</code>,表示以管理员身份运行</h4><h4 id="添加用户-useradd"><a href="#添加用户-useradd" class="headerlink" title="添加用户 useradd"></a>添加用户 <code>useradd</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd -m test1</span><br><span class="line">useradd -m -g test1 xiaoming</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数</strong></p>
+<p><code>-m</code>		在<code>/home</code>下添加用户目录</p>
+<p><code>-g</code>		指定用户所在的组，否则会建立在一个同名的组</p>
+<h4 id="修改用户密码-passwd"><a href="#修改用户密码-passwd" class="headerlink" title="修改用户密码 passwd"></a>修改用户密码 <code>passwd</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd test1</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除用户-userdel"><a href="#删除用户-userdel" class="headerlink" title="删除用户 userdel"></a>删除用户 <code>userdel</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">userdel test1</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数</strong></p>
+<p><code>-r</code>		自动删除用户家目录</p>
+<ul>
+<li>1.在登录系统时，默认不允许以<code>root</code>用户登录</li>
+<li>2.只有特殊的用户，才能执行<code>sudo</code></li>
+</ul>
+<p><code>Linux</code>下，把能执行<code>sudo</code>命令的用户叫<code>sudoer</code></p>
+<h4 id="修改用户信息-usermod"><a href="#修改用户信息-usermod" class="headerlink" title="修改用户信息 usermod"></a>修改用户信息 <code>usermod</code></h4><p><strong>用法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">usermod [选项] 登录名</span><br><span class="line"></span><br><span class="line"># 修改用户的主组（passwd 中的 GID）</span><br><span class="line">usermod -g 组 用户名</span><br><span class="line"></span><br><span class="line"># 修改用户的附加组</span><br><span class="line">usermod -G 组 用户名</span><br><span class="line"></span><br><span class="line"># 修改用户登录 Shell</span><br><span class="line">usermod -s /bin/bash</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>主组</strong> 通常在新建用户时指定，在<code>etc/passwd</code>第<code>4</code>列**<code>GID</code>对应的组**</li>
+<li><strong>附加组</strong> 在<code>etc/group</code>中最后一列表示该组的用户列表，用于指定<strong>用户的附加权限</strong></li>
+</ul>
+<p>重新登录生效</p>
+<p><strong>选项</strong></p>
+<ul>
+<li><code>-c</code> 用户说明：修改用户的说明信息，即修改 <code>/etc/passwd</code>文件目标用户信息的第<code>5</code>个字段；</li>
+<li><code>-d</code> 主目录：修改用户的主目录，即修改<code>/etc/passwd</code>文件中目标用户信息的第 6 个字段，需要注意的是，主目录必须写绝对路径；</li>
+<li><code>-e</code> 日期：修改用户的失效曰期，格式为<code>YYYY-MM-DD</code>，即修改 <code>/etc/shadow </code>文件目标用户密码信息的第<code>8</code>个字段；</li>
+<li><code>-g</code> 组名：修改用户的初始组，即修改<code>/etc/passwd</code>文件目标用户信息的第 4 个字段（GID）；</li>
+<li><code>-u</code> <code>UID</code>：修改用户的<code>UID</code>，即修改<code>/etc/passwd</code>文件目标用户信息的第 3 个字段<code>（UID）</code>；</li>
+<li><code>-G</code> 组名：修改用户的附加组，其实就是把用户加入其他用户组，即修改<code>/etc/group</code>文件；</li>
+<li><code>-l</code> 用户名：修改用户名称；</li>
+<li><code>-L</code>：临时锁定用户<code>（Lock）</code>；</li>
+<li><code>-U</code>：解锁用户<code>（Unlock）</code>，和 <code>-L</code> 对应；</li>
+<li><code>-s</code> shell：修改用户的登录 <code>Shell</code>，默认是 <code>/bin/bash</code>。</li>
+</ul>
+<h4 id="切换用户-su-exit"><a href="#切换用户-su-exit" class="headerlink" title="切换用户 su exit"></a>切换用户 <code>su exit</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">切换至用户</span><br><span class="line">su [用户名]</span><br><span class="line">su - [用户名] # 可切换到此用户的工作目录</span><br><span class="line"></span><br><span class="line">退出</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看用户信息"><a href="#查看用户信息" class="headerlink" title="查看用户信息"></a>查看用户信息</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>查看用户UID和GID信息</td>
+</tr>
+<tr>
+<td>who</td>
+<td>查看当前所有用户的用户列表</td>
+</tr>
+<tr>
+<td>whoami</td>
+<td>查看当前登录用户的登录名</td>
+</tr>
+</tbody></table>
+<p><strong><code>passwd</code>文件</strong></p>
+<p><code>/etc/passwd</code>文件存放的是用户的信息，由<code>6</code>个分号组成的<code>7</code>个信息，分别是</p>
+<p>1.<strong>用户名</strong></p>
+<p>2.<strong>密码</strong>（<code>x</code>,表示加密的密码）</p>
+<p>3.<strong>UID</strong>（用户表示）</p>
+<p>4.<strong>GID</strong>（组标识）</p>
+<p>5.<strong>用户全名或本地账号</strong></p>
+<p>6.<strong>家目录</strong></p>
+<p>7.**登录使用的<code>Shell</code>**，就是登录之后，使用的终端命令，<code>Ubuntu</code>默认是<code>dash</code></p>
+<h3 id="超级用户"><a href="#超级用户" class="headerlink" title="超级用户"></a>超级用户</h3><p>超级用户 <code>root</code></p>
+<p>切换到<code>root</code>用户，有全部权限，可以直接<code>useradd</code>等命令。</p>
+<h4 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h4><p>首次使用时，需要给<code>root</code>设置密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd root</span><br></pre></td></tr></table></figure>
+
+<h4 id="切换到root用户"><a href="#切换到root用户" class="headerlink" title="切换到root用户"></a>切换到root用户</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>su</code>表示<code>switch user</code></p>
+<h4 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>su root</code>仅仅对当前会话（终端）有效 不影响当前桌面环境</li>
+<li><code>root</code>权力太大，需要小心使用</li>
+</ul>
+<h3 id="以root登录桌面"><a href="#以root登录桌面" class="headerlink" title="以root登录桌面"></a>以<code>root</code>登录桌面</h3><h4 id="登录root"><a href="#登录root" class="headerlink" title="登录root"></a>登录<code>root</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br></pre></td></tr></table></figure>
+
+<h4 id="更改-etc-pam-d-gdm-autologin"><a href="#更改-etc-pam-d-gdm-autologin" class="headerlink" title="更改/etc/pam.d/gdm-autologin"></a>更改<code>/etc/pam.d/gdm-autologin</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit /etc/pam.d/gdm-autologin</span><br></pre></td></tr></table></figure>
+
+<p>在这一行前面加一个<code>#</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># auth	required	pam_succeed_if.so user !root quiet_success</span><br></pre></td></tr></table></figure>
+
+<p>保存并关闭</p>
+<h4 id="更改-etc-pam-d-gdm-password"><a href="#更改-etc-pam-d-gdm-password" class="headerlink" title="更改/etc/pam.d/gdm-password"></a>更改<code>/etc/pam.d/gdm-password</code></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit /etc/pam.d/gdm-password</span><br></pre></td></tr></table></figure>
+
+<p>在这一行前面加一个<code>#</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#auth requiredpam_succeed_if.so user !=root quiet_success </span><br></pre></td></tr></table></figure>
+
+<p>保存并关闭，重启后生效</p>
+<h3 id="用户组"><a href="#用户组" class="headerlink" title="用户组"></a>用户组</h3><p><code>Linux</code>下可以创建多个用户，可以用组进行管理用户</p>
+<h4 id="创建组"><a href="#创建组" class="headerlink" title="创建组"></a>创建组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd test1</span><br></pre></td></tr></table></figure>
+
+<h4 id="移除组"><a href="#移除组" class="headerlink" title="移除组"></a>移除组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel test1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当组中存在用户时，无法删除，若删除，需移除组内用户</li>
+</ul>
+<p><strong>创建用户</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -g test1 ming</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>-g</code>表示在添加用户，同时将用户加到<code>test1</code>组</p>
+<p><strong>修改现有用户到新的组</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -g test1 ming</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>usermod</code>表示修改用户信息</p>
+<h3 id="用户和组"><a href="#用户和组" class="headerlink" title="用户和组"></a>用户和组</h3><h4 id="查看用户"><a href="#查看用户" class="headerlink" title="查看用户"></a>查看用户</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p>每一行表示一个用户的信息</p>
+<h4 id="查看组"><a href="#查看组" class="headerlink" title="查看组"></a>查看组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/group</span><br></pre></td></tr></table></figure>
+
+<p>用户不多时，管理的时候并不适用组的概念</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd a1</span><br><span class="line">useradd b1</span><br></pre></td></tr></table></figure>
+
+<p>一个<code>root</code>用户，两个普通用户<code>a1</code>,<code>b1</code></p>
+<p>默认地，会给<code>a1</code>用户建立一个同名的组<code>a1</code>,也就是说这个组里只有他一个人</p>
+<h2 id="程序与进程"><a href="#程序与进程" class="headerlink" title="程序与进程"></a>程序与进程</h2><p>程序<code>Program</code>：指一个程序文件，如<code>notepad.exe</code></p>
+<p>进程<code>Process</code>：当一个程序运行起来，在操作系统内创建一条记录，用于描述和控制他的运行</p>
+<p>比如，打开多个<code>notepad.exe</code>,则得到多个进程</p>
+<h3 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -ef</span><br><span class="line">ps -aux</span><br></pre></td></tr></table></figure>
+
+<p>其中，</p>
+<p><code>a</code> 显示终端上的所有进程，包括其他用户的进程</p>
+<p><code>u</code> 显示进程的详细状态</p>
+<p><code>x</code> 显示没有控制终端的进程</p>
+<p>其中，各个字段的含义：</p>
+<p><code>User</code>:执行者</p>
+<p><code>PID</code>:进程<code>ID</code></p>
+<p><code>PPID</code>:父进程<code>ID</code></p>
+<p><code>STIME</code>:启动时间</p>
+<p><code>CMD</code>:启动时调用的命令行</p>
+<p>按名称 查找某个进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep java</span><br></pre></td></tr></table></figure>
+
+<p>其中，将前者输出的信息，重定向给<code>grep</code>命令过滤处理</p>
+<h3 id="进程监视"><a href="#进程监视" class="headerlink" title="进程监视"></a>进程监视</h3><p><code>top</code>命令，相当于<code>Windows</code>的任务管理器</p>
+<p>查看所有进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+
+<p><strong>区别于<code>ps -ef</code>，<code>top</code>可动态查看</strong></p>
+<ul>
+<li>按上下键翻阅</li>
+<li>按<code>q</code>或<code>CTRL+C</code>中止退出</li>
+</ul>
+<p><strong>查看某个进程</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top -p XXX</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>XXX</code>为目标进程的<code>PID</code></p>
+<p>所以，可以先用<code>ps</code>命令查找目标进程的<code>PID</code></p>
+<h3 id="杀死进程"><a href="#杀死进程" class="headerlink" title="杀死进程"></a>杀死进程</h3><p>使用<code>kill</code>命令，杀死一个进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 XXX</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill name_of_progress</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>XXX</code>表示为<code>PID</code></p>
+<h3 id="前台进程与后台进程"><a href="#前台进程与后台进程" class="headerlink" title="前台进程与后台进程"></a>前台进程与后台进程</h3><p>前台进程：运行在前台</p>
+<p>后台进程：运行在后台</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./run_Program run 以前台方式运行（Ctrl+C 中止）</span><br><span class="line">./run_Program start 以后台方式运行</span><br></pre></td></tr></table></figure>
+
+<p><strong>区别</strong></p>
+<p>1.有无控制台</p>
+<p>前台进程：有控制台，输出至当前终端</p>
+<p>后台进程：无控制台，看不到输出</p>
+<p>2.有无父进程</p>
+<p>前台进程：有父进程，父进程即为当前终端，当终端关闭时，前台进程被一同关闭</p>
+<p>后台进程：父进程为系统进程（1号进程），当终端关闭时，后台进程不受影响</p>
+<p>3.强行终止</p>
+<p>前台进程：使用<code>Ctrl+C</code>强行终止</p>
+<p>后台进程：使用<code>kill -9 XXX</code>强行终止</p>
+<h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><h3 id="文件的权限"><a href="#文件的权限" class="headerlink" title="文件的权限"></a>文件的权限</h3><ul>
+<li><code>owner</code> 文件的属主 <code>owner</code></li>
+<li><code>r</code> 文件是否可读 <code>read</code></li>
+<li><code>w</code> 文件是否可写 <code>write</code></li>
+<li><code>x</code> 文件是否可执行 <code>excute</code></li>
+</ul>
+<p>权限可分为三部分：自己<code>|</code>同组<code>|</code>别人</p>
+<p>每三项为一组</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r w x | r w x | r w x</span><br><span class="line">r w x | r w x | r - -</span><br><span class="line">r - - | - - - | - - -</span><br></pre></td></tr></table></figure>
+
+<p>在文件夹属性窗口里，文件<code>|</code>属性<code>|</code>权限  查看</p>
+<h3 id="修改文件权限"><a href="#修改文件权限" class="headerlink" title="修改文件权限"></a>修改文件权限</h3><p><code>chmod</code>即<code>change file mode</code>修改文件的访问权限</p>
+<p>比如，一个文件<code>simple.txt</code>,想让别人也能修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod o+w simple.txt</span><br><span class="line">chmod o-w simple.txt</span><br><span class="line">chmod -R 755 simple.txt</span><br></pre></td></tr></table></figure>
+
+<p>其中，</p>
+<p><code>o</code>,表示<code>other</code>别人</p>
+<p><code>+w</code>,表示增写<code>write</code>权限</p>
+<p><code>-w</code>,表示减去<code>write</code>权限</p>
+<p><code>-R</code>,表示递归</p>
+<p><code>chmod</code>在设置权限时，可以简单地使用三个数字分别对应<strong>拥有者</strong>&#x2F;<strong>组</strong>&#x2F;<strong>其他</strong>用户的权限</p>
+<table>
+<thead>
+<tr>
+<th>拥有者</th>
+<th>拥有者</th>
+<th>拥有者</th>
+<th>组</th>
+<th>组</th>
+<th>组</th>
+<th>其他</th>
+<th>其他</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>r</td>
+<td>w</td>
+<td>x</td>
+<td>r</td>
+<td>w</td>
+<td>x</td>
+<td>r</td>
+<td>w</td>
+<td>x</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p><strong>例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+w simple.txt</span><br></pre></td></tr></table></figure>
+
+<p>所有人<code>all</code>添加<code>w</code>权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a-w simple.txt</span><br></pre></td></tr></table></figure>
+
+<p>所有人减去<code>w</code>权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod u+w simple.txt</span><br></pre></td></tr></table></figure>
+
+<p>仅用户<code>user</code>自己的权限<code>+w</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod o-w simple.txt</span><br></pre></td></tr></table></figure>
+
+<p>修改别人<code>other</code>的权限<code>-w</code></p>
+<ul>
+<li>只有文件的属主或者<code>root</code>可以修改文件权限</li>
+<li>省略写法</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +w simple.txt</span><br><span class="line">chmod -w simple.txt</span><br></pre></td></tr></table></figure>
+
+<p>默认是修改自己和本组的权限</p>
+<h3 id="修改文件属主"><a href="#修改文件属主" class="headerlink" title="修改文件属主"></a>修改文件属主</h3><p><code>chown</code>,即<code>change owner</code>修改文件的属主</p>
+<p>一般来说，每个用户只能操作自己的用户目录，所以<code>chown</code>命令并不常用</p>
+<p><strong>参数</strong></p>
+<p><code>-R</code>		表示递归</p>
+<p><strong>示例</strong></p>
+<p>1.在<code>/opt</code>目录下简历一个文件夹<code>test1</code></p>
+<p>2.将<code>/opt/test1</code>目录分配给用户<code>l</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br><span class="line">mkdir /opt/test1</span><br><span class="line">chown -R l /opt/test1</span><br><span class="line">#查看</span><br><span class="line">ls -l /opt/test1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>只有文件的<code>owner</code>和<code>root</code>才有权更改属主</li>
+</ul>
+<h3 id="修改文件的属组"><a href="#修改文件的属组" class="headerlink" title="修改文件的属组"></a>修改文件的属组</h3><p><code>chgrp</code>即<code>change group</code>修改文件的属组</p>
+<p><strong>参数</strong></p>
+<p><code>-R</code>		表示递归</p>
+<p><strong>用法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp -R 组名 文件/目录名</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="可执行脚本"><a href="#可执行脚本" class="headerlink" title="可执行脚本"></a>可执行脚本</h2><p>脚本<code>Script</code>,一种解释执行的程序</p>
+<p><code>Linux</code>下常见的三种脚本程序</p>
+<ul>
+<li><code>Shell</code>脚本<code>*.sh</code></li>
+<li><code>Perl</code>脚本<code>*.pl</code></li>
+<li><code>Python</code>脚本<code>*.py</code></li>
+</ul>
+<p>脚本程序，本质是一个文本文件</p>
+<p><strong>1.它是一个文本文件</strong></p>
+<p><strong>2.他具有可执行权限</strong></p>
+<p>脚本程序都是由解释器来执行的</p>
+<ul>
+<li><code>Shell</code>脚本解释器：	<code>/bin/sh</code></li>
+<li><code>Perl</code>脚本解释器：         <code>/bin.pl</code></li>
+<li><code>Python</code>脚本解释器：      <code>/bin.python3</code></li>
+</ul>
+<p>执行一个脚本时，以下两种方式等效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./hello.py</span><br><span class="line"></span><br><span class="line">/bin/python3 hello.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a><code>Shell</code>脚本</h3><p><code>Shell</code>脚本，按<code>Shell</code>的语法写出来的脚本，是<code>Linux</code>自带的脚本语言</p>
+<p>相当于<code>Windows</code>下的<code>DOS</code>批处理脚本</p>
+<p>1.编辑一个文本文件，保存为hello.sh</p>
+<p>2.添加可执行权限</p>
+<p>3.执行程序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">echo &quot;hello,world&quot;</span><br><span class="line"></span><br><span class="line">chmod +x hello.sh</span><br><span class="line"></span><br><span class="line">./hello.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一行必须声明解释器</li>
+<li>必须有<code>x</code>权限，才能够执行</li>
+</ul>
+<p>比如，一个程序只有作者可执行，别人不能执行</p>
+<p><code>rwxr--r--</code></p>
+<ul>
+<li>执行程序时，必须加上路径</li>
+</ul>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="环境变量-1"><a href="#环境变量-1" class="headerlink" title="环境变量"></a>环境变量</h3><p>定义环境变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export OUTDIR=/opt</span><br></pre></td></tr></table></figure>
+
+<p>显示环境变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;OUTDIR&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看所有环境变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printenv</span><br></pre></td></tr></table></figure>
+
+<p>环境变量的使用</p>
+<ul>
+<li>可以在当前终端中使用</li>
+<li>可以在<code>SHELL</code>脚本中调用</li>
+</ul>
+<h3 id="用户环境变量"><a href="#用户环境变量" class="headerlink" title="用户环境变量"></a>用户环境变量</h3><p>用户环境变量：定义在<code>~/.profile</code>中</p>
+<p><strong>1.用文本编辑器打开<code>~/.profile</code></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geidt ~/.profile</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.添加</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/opt/jdk1.8</span><br></pre></td></tr></table></figure>
+
+<p>保存后关闭</p>
+<p><strong>3.注销，重新登录后生效</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $JAVA_HOME</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>此配置只对当前用户有效</li>
+<li>有的<code>Linux</code>系统上，使用<code>.bash_profile</code></li>
+</ul>
+<h3 id="系统环境变量"><a href="#系统环境变量" class="headerlink" title="系统环境变量"></a>系统环境变量</h3><p>系统环境变量：定义在<code>/etc/profile</code>中</p>
+<p>此中的环境变量对 所有用户 有效</p>
+<p>以<code>root</code>身份执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>但是，一般不直接修改<code>/etc/profile</code></p>
+<p>而是在<code>/etc/profile.d/</code>创建一个自定义的脚本</p>
+<p><strong>1.用<code>gedit</code>创建一个脚本</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit /etc/profile.d/myprofile.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.定义环境变量</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export TOMCAT=/opt/tomcat</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.注销并重新登录</strong></p>
+<p>重新登录后，环境变量生效</p>
+<h3 id="PATH环境变量"><a href="#PATH环境变量" class="headerlink" title="PATH环境变量"></a>PATH环境变量</h3><p>默认地，系统从以下目录中搜索可执行程序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin	#比如，/usr/bin/tar</span><br><span class="line">/usr/sbin	#比如，/usr/sbin/useradd</span><br><span class="line">/usr/local/bin</span><br><span class="line">/usr/loacl/sbin</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>sbin</code>为超级用户<code>root</code>才能执行的程序</p>
+<p><code>/usr/</code>下系统自带的程序，<code>/usr/local/</code>使用户安装的程序</p>
+<p><strong>修改PATH环境变量</strong></p>
+<p><strong>1.编辑<code>/etc/profile.d/myprofile.sh</code>,设定<code>PATH</code>环境变量</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/opt/tomcat/bin</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.注销，重启登录后生效</strong></p>
+<h2 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h2><h3 id="网卡-和-IP地址"><a href="#网卡-和-IP地址" class="headerlink" title="网卡 和 IP地址"></a>网卡 和 <code>IP</code>地址</h3><p><strong>网卡</strong></p>
+<ul>
+<li><p><strong>网卡</strong>是一个专门负责网络通讯的硬件设备</p>
+</li>
+<li><p><strong><code>IP</code> 地址</strong>是设置在网课上的地址信息</p>
+</li>
+</ul>
+<p><strong><code>IP</code> 地址</strong></p>
+<ul>
+<li>每台联网的电脑上都有**<code>IP</code>地址**，是保证电脑之间正常通讯的重要设置</li>
+</ul>
+<h3 id="ipconfig"><a href="#ipconfig" class="headerlink" title="ipconfig"></a><code>ipconfig</code></h3><p>默认地，<code>Ubuntu</code>下面不带<code>ifconfig</code>命令，需手动安装</p>
+<h4 id="查看网络配置"><a href="#查看网络配置" class="headerlink" title="查看网络配置"></a>查看网络配置</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>if</code>表示<code>interface</code>网络接口</p>
+<p>会列出所有的网络接口，及各个接口的状态</p>
+<h4 id="开启-禁用网络"><a href="#开启-禁用网络" class="headerlink" title="开启&#x2F;禁用网络"></a>开启&#x2F;禁用网络</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ifconfig xxx up</span><br><span class="line">sudo ifconfig xxx down</span><br></pre></td></tr></table></figure>
+
+<h3 id="ping"><a href="#ping" class="headerlink" title="ping"></a><code>ping</code></h3><p>一般用于检测当前计算机到目标计算机之间的网络<strong>是否通畅</strong>，<strong>数值越大</strong>，<strong>速度越慢</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 检测到目标主机是否正常连接</span><br><span class="line">ping IP地址</span><br><span class="line"></span><br><span class="line"># 检测本地网卡工作正常</span><br><span class="line">ping 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="SSH服务"><a href="#SSH服务" class="headerlink" title="SSH服务"></a>SSH服务</h3><h4 id="配置SSH服务"><a href="#配置SSH服务" class="headerlink" title="配置SSH服务"></a>配置<code>SSH</code>服务</h4><p>Ubuntu默认是不安装SSH服务</p>
+<h5 id="安装SSH服务"><a href="#安装SSH服务" class="headerlink" title="安装SSH服务"></a>安装SSH服务</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ssh</span><br></pre></td></tr></table></figure>
+
+<h5 id="启动SSH服务"><a href="#启动SSH服务" class="headerlink" title="启动SSH服务"></a>启动SSH服务</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/ssh start</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过<code>-p</code>参数可指定登录端口</li>
+</ul>
+<h5 id="修改SSH配置文件"><a href="#修改SSH配置文件" class="headerlink" title="修改SSH配置文件"></a>修改SSH配置文件</h5><p>可以通过SSH配置文件更改包括端口、是否允许root登录等设置，配置文件位置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>默认是不允许root远程登录的，可以再配置文件开启。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>找到<code>PermitRootLogin without-password</code>修改为<code>PermitRootLogin yes</code></p>
+<ul>
+<li>默认情况下，端口号为<code>22</code>，登录是不需增加<code>-p</code>参数</li>
+</ul>
+<h5 id="重启SSH服务"><a href="#重启SSH服务" class="headerlink" title="重启SSH服务"></a>重启SSH服务</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service ssh restart</span><br></pre></td></tr></table></figure>
+
+<h4 id="SSH高级"><a href="#SSH高级" class="headerlink" title="SSH高级"></a><code>SSH</code>高级</h4><ul>
+<li>有关ssh配置信息都保存在用户家目录下的<code>.ssh</code>目录下</li>
+</ul>
+<h5 id="免密码登录"><a href="#免密码登录" class="headerlink" title="免密码登录"></a>免密码登录</h5><p><strong>步骤</strong></p>
+<ul>
+<li>配置公钥</li>
+</ul>
+<p>执行<code>ssh-keygen</code>即可生成 <code>SSH</code>钥匙</p>
+<ul>
+<li>上传公钥到服务器</li>
+</ul>
+<p>执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -p port user@remote</span><br></pre></td></tr></table></figure>
+
+<p>可以让远程服务器记住我们的公钥</p>
+<h5 id="配置别名"><a href="#配置别名" class="headerlink" title="配置别名"></a>配置别名</h5><p>在<code>~/.ssh/config</code>中，追加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host example</span><br><span class="line">	HostName IP地址</span><br><span class="line">	User 用户名</span><br><span class="line">	Port 端口</span><br></pre></td></tr></table></figure>
+
+<p>保存之后，就可以使用<code>ssh example</code>实现远程登录，<code>scp</code>同样可以使用</p>
+<h2 id="文本编辑-vim"><a href="#文本编辑-vim" class="headerlink" title="文本编辑(vim)"></a>文本编辑(vim)</h2><p><code>vi/vim</code>,一个基于控制台的文本编辑器</p>
+<p><code>gedit</code>,一个基于<code>GUI</code>的文本编辑器</p>
+<p>其中，<code>vim</code>是<code>vi</code>的升级版</p>
+<ul>
+<li>若不存在<code>vim</code>，则使用<code>sudo apt install vim</code>安装</li>
+</ul>
+<h3 id="切换模式"><a href="#切换模式" class="headerlink" title="切换模式"></a>切换模式</h3><p>编辑模式<code>Insert Mode</code>:按<code>i</code>键</p>
+<p>命令模式<code>Command Mode</code>:按<code>ESC</code>键</p>
+<h3 id="退出编辑"><a href="#退出编辑" class="headerlink" title="退出编辑"></a>退出编辑</h3><p>1.按<code>ESC</code>键，进入命令模式</p>
+<p>2.输入：</p>
+<p><code>:wq</code>保存并退出</p>
+<p><code>:q</code> 退出</p>
+<p><code>:q!</code> 强制退出（放弃保存）</p>
+<ul>
+<li>须输入冒号<code>(:)!!!!!</code></li>
+</ul>
+<p><strong>换行符</strong></p>
+<p>在<code>Windows</code>上编辑<code>SHELL</code>脚本时，记得设置换行符</p>
+<p><code>Windows</code>:<code>\r\n</code></p>
+<p><code>Linix</code>:<code>\n</code></p>
+<ul>
+<li>仅在<code>shell</code>脚本中需要改动</li>
+</ul>
+<h2 id="Java环境"><a href="#Java环境" class="headerlink" title="Java环境"></a>Java环境</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>JRE</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openjdk-8-jre-headless</span><br></pre></td></tr></table></figure>
+
+<p><code>JDK</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openjdk-8-jdk-headless</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>openjdk</code>是<code>JDK</code>的免费版本，推荐<code>JDK8</code></p>
+<h3 id="环境变量-2"><a href="#环境变量-2" class="headerlink" title="环境变量"></a>环境变量</h3><p>默认放在<code>/usr/bin</code>下，不需要额外设置<code>PATH</code></p>
+<ul>
+<li>若放在自定义位置，需要设置<code>PATH</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$&#123;PATH&#125;:opt/jdk8/bin</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -cp example.jar example.MainClass</span><br><span class="line">java -jar your_program.jar</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>权限问题</strong></li>
+</ul>
+<p>程序中 需要访问系统文件，如<code>/etc/</code>,须使用<code>root</code>运行</p>
+<p>程序中 需要开启<code>TCP</code>端口，如<code>80</code>,须使用<code>root</code>运行</p>
+<ul>
+<li><code>Java GUI</code>的程序不能在终端里运行</li>
+</ul>
+<h3 id="Java启动脚本"><a href="#Java启动脚本" class="headerlink" title="Java启动脚本"></a>Java启动脚本</h3><ul>
+<li>设置工作目录</li>
+<li>设置必要的环境变量</li>
+<li>设置<code>JVM</code>鱼腥参数</li>
+<li>运行程序</li>
+</ul>
+<p>注意：需将脚本转换为<code>UNIX</code>风格</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.lcbmasters.com">Source</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.lcbmasters.com/2024/12/01/ubuntu-command-help/">https://blog.lcbmasters.com/2024/12/01/ubuntu-command-help/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.lcbmasters.com" target="_blank">Source 博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Document/">Document</a></div><div class="post-share"><div class="social-share" data-image="https://s2.loli.net/2024/12/01/CGuasMZmPBRiA4S.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="next-post pull-full" href="/2024/12/01/hello-world/" title="Hello World"><img class="cover" src="https://s2.loli.net/2024/11/03/4AvPUebt1HVEWDT.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/11/03/J7hnBxTPdOEzUYm.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Source</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://home.lcbmasters.com"><i class="fas fa-home"></i><span>找到我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/sourcefuture" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:hi@lcbmasters.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Source 个人博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Ubuntu"><span class="toc-number">1.</span> <span class="toc-text">Ubuntu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">文件列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ls"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pwd"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">pwd</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.2.</span> <span class="toc-text">切换目录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cd"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">cd</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.3.</span> <span class="toc-text">目录操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tree"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">tree</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mkdir"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">mkdir</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rmdir"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">rmdir</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.4.</span> <span class="toc-text">创建与删除操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rm"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">rm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#touch"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">touch</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D%E5%92%8C%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.5.</span> <span class="toc-text">拷贝和移动文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cp"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">cp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mv"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">mv</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-number">1.1.6.</span> <span class="toc-text">查看文件内容</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cat"><span class="toc-number">1.1.6.1.</span> <span class="toc-text">cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#more"><span class="toc-number">1.1.6.2.</span> <span class="toc-text">more</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#grep"><span class="toc-number">1.1.6.3.</span> <span class="toc-text">grep</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E6%A1%A3%E5%8E%8B%E7%BC%A9"><span class="toc-number">1.1.7.</span> <span class="toc-text">归档压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#tar"><span class="toc-number">1.1.7.1.</span> <span class="toc-text">tar</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E9%93%BE%E6%8E%A5"><span class="toc-number">1.1.8.</span> <span class="toc-text">软链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ln"><span class="toc-number">1.1.8.1.</span> <span class="toc-text">ln</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">1.1.9.</span> <span class="toc-text">软件包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#apt"><span class="toc-number">1.1.9.1.</span> <span class="toc-text">apt</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E6%9C%BA-%E9%87%8D%E5%90%AF"><span class="toc-number">1.1.10.</span> <span class="toc-text">关机&#x2F;重启</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#shutdown"><span class="toc-number">1.1.10.1.</span> <span class="toc-text">shutdown</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E5%91%BD%E4%BB%A4%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.1.11.</span> <span class="toc-text">查找命令位置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#which"><span class="toc-number">1.1.11.1.</span> <span class="toc-text">which</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.1.12.</span> <span class="toc-text">查找文件位置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#find"><span class="toc-number">1.1.12.1.</span> <span class="toc-text">find</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF"><span class="toc-number">1.1.13.</span> <span class="toc-text">系统信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4"><span class="toc-number">1.1.13.1.</span> <span class="toc-text">日期与时间</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#cal"><span class="toc-number">1.1.13.1.1.</span> <span class="toc-text">cal</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%92%8C%E7%9B%AE%E5%BD%95%E7%A9%BA%E9%97%B4"><span class="toc-number">1.1.13.2.</span> <span class="toc-text">磁盘和目录空间</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#df"><span class="toc-number">1.1.13.2.1.</span> <span class="toc-text">df</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#du"><span class="toc-number">1.1.13.2.2.</span> <span class="toc-text">du</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">1.1.14.</span> <span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#echo"><span class="toc-number">1.1.14.1.</span> <span class="toc-text">echo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#clear"><span class="toc-number">1.1.14.2.</span> <span class="toc-text">clear</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91-%E5%92%8C"><span class="toc-number">1.1.14.3.</span> <span class="toc-text">重定向 &gt; 和 &gt;&gt;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%A1%E9%81%93"><span class="toc-number">1.1.14.4.</span> <span class="toc-text">管道 |</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text">用户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7"><span class="toc-number">1.2.1.</span> <span class="toc-text">用户</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#sudo-%E8%A1%A8%E7%A4%BA%E4%BB%A5%E7%AE%A1%E7%90%86%E5%91%98%E8%BA%AB%E4%BB%BD%E8%BF%90%E8%A1%8C"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">sudo,表示以管理员身份运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7-useradd"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">添加用户 useradd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81-passwd"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">修改用户密码 passwd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7-userdel"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">删除用户 userdel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF-usermod"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">修改用户信息 usermod</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E7%94%A8%E6%88%B7-su-exit"><span class="toc-number">1.2.1.6.</span> <span class="toc-text">切换用户 su exit</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="toc-number">1.2.2.</span> <span class="toc-text">查看用户信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7"><span class="toc-number">1.2.3.</span> <span class="toc-text">超级用户</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">设置密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E5%88%B0root%E7%94%A8%E6%88%B7"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">切换到root用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%80%E5%87%BA"><span class="toc-number">1.2.3.3.</span> <span class="toc-text">退出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5root%E7%99%BB%E5%BD%95%E6%A1%8C%E9%9D%A2"><span class="toc-number">1.2.4.</span> <span class="toc-text">以root登录桌面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%99%BB%E5%BD%95root"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">登录root</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9-etc-pam-d-gdm-autologin"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">更改&#x2F;etc&#x2F;pam.d&#x2F;gdm-autologin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9-etc-pam-d-gdm-password"><span class="toc-number">1.2.4.3.</span> <span class="toc-text">更改&#x2F;etc&#x2F;pam.d&#x2F;gdm-password</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%BB%84"><span class="toc-number">1.2.5.</span> <span class="toc-text">用户组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BB%84"><span class="toc-number">1.2.5.1.</span> <span class="toc-text">创建组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4%E7%BB%84"><span class="toc-number">1.2.5.2.</span> <span class="toc-text">移除组</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84"><span class="toc-number">1.2.6.</span> <span class="toc-text">用户和组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7"><span class="toc-number">1.2.6.1.</span> <span class="toc-text">查看用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BB%84"><span class="toc-number">1.2.6.2.</span> <span class="toc-text">查看组</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E4%B8%8E%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">程序与进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">查看进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9B%91%E8%A7%86"><span class="toc-number">1.3.2.</span> <span class="toc-text">进程监视</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%80%E6%AD%BB%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.3.3.</span> <span class="toc-text">杀死进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E5%8F%B0%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.3.4.</span> <span class="toc-text">前台进程与后台进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-number">1.4.</span> <span class="toc-text">文件权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E6%9D%83%E9%99%90"><span class="toc-number">1.4.1.</span> <span class="toc-text">文件的权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-number">1.4.2.</span> <span class="toc-text">修改文件权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E5%B1%9E%E4%B8%BB"><span class="toc-number">1.4.3.</span> <span class="toc-text">修改文件属主</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E7%9A%84%E5%B1%9E%E7%BB%84"><span class="toc-number">1.4.4.</span> <span class="toc-text">修改文件的属组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-number">1.5.</span> <span class="toc-text">可执行脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Shell%E8%84%9A%E6%9C%AC"><span class="toc-number">1.5.1.</span> <span class="toc-text">Shell脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.6.</span> <span class="toc-text">环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-1"><span class="toc-number">1.6.1.</span> <span class="toc-text">环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.6.2.</span> <span class="toc-text">用户环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.6.3.</span> <span class="toc-text">系统环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PATH%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.6.4.</span> <span class="toc-text">PATH环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="toc-number">1.7.</span> <span class="toc-text">网络配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E5%8D%A1-%E5%92%8C-IP%E5%9C%B0%E5%9D%80"><span class="toc-number">1.7.1.</span> <span class="toc-text">网卡 和 IP地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ipconfig"><span class="toc-number">1.7.2.</span> <span class="toc-text">ipconfig</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="toc-number">1.7.2.1.</span> <span class="toc-text">查看网络配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%90%AF-%E7%A6%81%E7%94%A8%E7%BD%91%E7%BB%9C"><span class="toc-number">1.7.2.2.</span> <span class="toc-text">开启&#x2F;禁用网络</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ping"><span class="toc-number">1.7.3.</span> <span class="toc-text">ping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.7.4.</span> <span class="toc-text">SSH服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AESSH%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.7.4.1.</span> <span class="toc-text">配置SSH服务</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%89%E8%A3%85SSH%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.7.4.1.1.</span> <span class="toc-text">安装SSH服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8SSH%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.7.4.1.2.</span> <span class="toc-text">启动SSH服务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9SSH%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.7.4.1.3.</span> <span class="toc-text">修改SSH配置文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%87%8D%E5%90%AFSSH%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.7.4.1.4.</span> <span class="toc-text">重启SSH服务</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSH%E9%AB%98%E7%BA%A7"><span class="toc-number">1.7.4.2.</span> <span class="toc-text">SSH高级</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95"><span class="toc-number">1.7.4.2.1.</span> <span class="toc-text">免密码登录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%88%AB%E5%90%8D"><span class="toc-number">1.7.4.2.2.</span> <span class="toc-text">配置别名</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91-vim"><span class="toc-number">1.8.</span> <span class="toc-text">文本编辑(vim)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%8D%A2%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.8.1.</span> <span class="toc-text">切换模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%80%E5%87%BA%E7%BC%96%E8%BE%91"><span class="toc-number">1.8.2.</span> <span class="toc-text">退出编辑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E7%8E%AF%E5%A2%83"><span class="toc-number">1.9.</span> <span class="toc-text">Java环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.9.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-2"><span class="toc-number">1.9.2.</span> <span class="toc-text">环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-number">1.9.3.</span> <span class="toc-text">运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC"><span class="toc-number">1.9.4.</span> <span class="toc-text">Java启动脚本</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/01/ubuntu-command-help/" title="Ubuntu系统常用命令"><img src="https://s2.loli.net/2024/12/01/CGuasMZmPBRiA4S.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ubuntu系统常用命令"/></a><div class="content"><a class="title" href="/2024/12/01/ubuntu-command-help/" title="Ubuntu系统常用命令">Ubuntu系统常用命令</a><time datetime="2024-12-01T11:44:44.000Z" title="发表于 2024-12-01 19:44:44">2024-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/01/hello-world/" title="Hello World"><img src="https://s2.loli.net/2024/11/03/4AvPUebt1HVEWDT.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2024/12/01/hello-world/" title="Hello World">Hello World</a><time datetime="2024-12-01T10:08:00.000Z" title="发表于 2024-12-01 18:08:00">2024-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/03/myfirstpassage/" title="资源整合">资源整合</a><time datetime="2024-11-03T04:12:06.000Z" title="发表于 2024-11-03 12:12:06">2024-11-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/04/Post-Test/" title="Post Test">Post Test</a><time datetime="2024-10-04T04:48:04.000Z" title="发表于 2024-10-04 12:48:04">2024-10-04</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By Source</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
